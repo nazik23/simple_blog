@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+	<body class='<%= controller.controller_name %>'> 
+		<div id="banner"></div>
+		<div id="columns">
+			<div id="side">
+				<%= link_to "All Posts", all_path %>
+				<div id="tag_cloud">
+				<% tag_cloud Post.tag_counts, %w{s m l} do |tag, css_class|%>
+					<%= link_to tag.name, tag_path(tag.name), class: css_class %>
+				<% end %>
+				</div>
+			</div>
+		</div>
+
+    <%= yield %>
+  </body>
+</html>

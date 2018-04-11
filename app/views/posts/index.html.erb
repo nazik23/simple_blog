@@ -1,0 +1,40 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Posts</h1>
+
+<table>
+	
+  <% @posts.order(created_at: :desc).each do |post| %>
+	  <tr class="<%= cycle('list_line_even', 'list_line_odd')%>">
+		  <td class="list_body">
+			  <dl>
+				  <dt><%= post.title %></dt>
+				  <dd><%= truncate(strip_tags(post.body), length: 150) %></dd>
+				  <% if post.tags.length > 0 %>
+				  <da id="tags">
+				  Tags <%= raw(post.tag_list.map {|t| 
+				  link_to t, tag_path(t)}.join(', ')) %>
+			  </da>
+		  <% end %>
+		                 <% if user_signed_in? %>
+		                 <% if (post.user_id == current_user.id) %>
+				  <da>
+				    <%= link_to 'Show', post %>
+				    <%= link_to 'Edit', edit_post_path(post) %>
+				    <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?'}%>
+				  </da>
+			  <% end %>
+			<% end %>
+			<da><%= post.created_at.strftime('%-d %b\'%y %H:%M')%></da>
+			  </dl>
+	          </td>
+      </tr>
+    <% end %>
+</table>
+
+<br>
+
+<%= link_to 'New Post', new_post_path %>
+<% if user_signed_in? %>
+<%= link_to 'Logout', logout_path, method: :delete %>
+<% end %>
