@@ -1,0 +1,8 @@
+<% @comments.each do |comment|%>
+	<dt><%= comment.comment_owner %></dt>
+	<dd><%= comment.body %></dd>
+	<da>
+	 <%= link_to 'Edit', edit_comment_path(comment) %>
+		<%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?'}%> 
+	</da>
+<% end %>

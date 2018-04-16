@@ -7,7 +7,7 @@
   <% @posts.order(created_at: :desc).each do |post| %>
 	  <tr class="<%= cycle('list_line_even', 'list_line_odd')%>">
 		  <td class="list_body">
-			  <dl>
+				<dl id="post_<%= post.id %>">
 				  <dt><%= post.title %></dt>
 				  <dd><%= truncate(strip_tags(post.body), length: 150) %></dd>
 				  <% if post.tags.length > 0 %>
@@ -15,19 +15,29 @@
 				  Tags <%= raw(post.tag_list.map {|t| 
 				  link_to t, tag_path(t)}.join(', ')) %>
 			  </da>
-		  <% end %>
-		                 <% if user_signed_in? %>
-		                 <% if (post.user_id == current_user.id) %>
+			<% end %>
+			<da class="comments">
+			  <%= link_to "Add comment", new_comment_path(post_id:  post.id), remote: true if user_signed_in? %>
+			</da>
+			<da><%= pluralize(post.comments.count, "comment") if post.comments.count > 0 %></da>
+			<da><%= post.created_at.strftime('%-d %b\'%y %H:%M')%></da>
+		  <% if user_signed_in? %>
+		    <% if (post.user_id == current_user.id) %>
 				  <da>
 				    <%= link_to 'Show', post %>
 				    <%= link_to 'Edit', edit_post_path(post) %>
 				    <%= link_to 'Delete', post, method: :delete, data: { confirm: 'Are you sure?'}%>
 				  </da>
-			  <% end %>
+
+				<% end %>
 			<% end %>
-			<da><%= post.created_at.strftime('%-d %b\'%y %H:%M')%></da>
-			  </dl>
-	          </td>
+				</dl>
+				<% if  post.comments.count > 0 %>
+					<dl id="comments_<%= post.id %>">
+						<%= link_to "Show comments", comments_path(post_id: post.id), id: "comments_#{post.id}", remote: true %>
+				</dl>
+			<% end %>
+	     </td>
       </tr>
     <% end %>
 </table>

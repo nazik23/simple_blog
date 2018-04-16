@@ -61,3 +61,6 @@ end
 group :development, :test do
 	gem 'factory_bot_rails'
 end
+gem 'acts_as_commentable'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'

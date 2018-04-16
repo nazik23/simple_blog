@@ -1,0 +1,2 @@
+$('#comments_<%= params[:post_id] %>').hide()
+$('#post_<%= params[:post_id] %>').append('<%= j render 'comments' %>')

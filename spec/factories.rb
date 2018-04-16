@@ -1,4 +1,9 @@
 FactoryBot.define do
+  factory :comment do
+    post nil
+    body "MyText"
+    user nil
+  end
 	factory :user do
 		id 25
 		initialize_with { User.find_or_create_by(id: id)}
