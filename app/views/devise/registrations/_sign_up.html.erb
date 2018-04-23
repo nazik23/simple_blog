@@ -1,0 +1,54 @@
+<div class="modal fade" id="sign_up">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<h2 class="modal-title">Sign up</h2>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+
+			<div class="modal-body">
+				<%= form_for(User.new, url: registration_path(:user), html: {"data-type" => 'json'}, remote: true) do |f| %>
+
+					<div class="field">
+						<%= f.label :first_name %><br />
+						<%= f.text_field :first_name, autofocus: true, autocomplete: "First name" %>
+					</div>
+
+					<div class="field">
+						<%= f.label :last_name %><br />
+						<%= f.text_field :last_name, autocomplete: "Last name" %>
+					</div>
+
+					<div class="field">
+						<%= f.label :email %><br />
+						<%= f.email_field :email, autocomplete: "email" %>
+					</div>
+
+					<div class="field">
+						<%= f.label :password %>
+						<% if @minimum_password_length %>
+						<em>(<%= @minimum_password_length %> characters minimum)</em>
+						<% end %><br />
+						<%= f.password_field :password, autocomplete: "off" %>
+					</div>
+
+					<div class="field">
+						<%= f.label :password_confirmation %><br />
+						<%= f.password_field :password_confirmation, autocomplete: "off" %>
+					</div>
+
+					<div class="actions">
+						<%= f.submit "Sign up" %>
+					</div>
+				<% end %>
+
+			</div>
+
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">Close
+				</button>
+			</div>
+		</div>
+	</div>
+</div>
