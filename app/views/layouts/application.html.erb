@@ -21,8 +21,10 @@
 			</div>
 
 			<% unless current_user%>
-				<%= link_to 'Sign_in', "#sign_in", "data-toggle" => "modal", "data-target" => "#sign_in", class: "btn btn-small", remote: true%>
+				<%= link_to 'Sign_in', "#sign_in", "data-toggle" => "modal", class: "btn btn-small"%>
 				<%= link_to 'Sign_up', "#sign_up", "data-toggle" => "modal", class: "btn btn-small"%>
+				<%= render 'devise/registrations/sign_up' %>
+				<%= render 'users/sessions/sign_in' %>
 			<% end %>
 		</div>
 
