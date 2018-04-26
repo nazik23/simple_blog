@@ -9,24 +9,37 @@
   </head>
 
 	<body class='<%= controller.controller_name %>'> 
-		<div id="banner"></div>
-		<div id="columns">
-			<div id="side">
-				<%= link_to "All Posts", all_path %>
-				<div id="tag_cloud">
-				<% tag_cloud Post.tag_counts, %w{s m l} do |tag, css_class|%>
-					<%= link_to tag.name, tag_path(tag.name), class: css_class %>
-				<% end %>
-				</div>
-			</div>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
+			<%= link_to "SSS", all_path, class: "navbar-brand" %>
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class"nav-link" href="#">
+							<div id="tag_cloud">
+							<% tag_cloud Post.tag_counts, %w{s m l} do |tag, css_class|%>
+								<%= link_to tag.name, tag_path(tag.name), class: css_class %>
+							<% end %>
+							</div>
+						</a>
+					</li>
 
-			<% unless current_user%>
-				<%= link_to 'Sign_in', "#sign_in", "data-toggle" => "modal", class: "btn btn-small"%>
-				<%= link_to 'Sign_up', "#sign_up", "data-toggle" => "modal", class: "btn btn-small"%>
-				<%= render 'devise/registrations/sign_up' %>
-				<%= render 'users/sessions/sign_in' %>
-			<% end %>
-		</div>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+							<%= current_user.nil? ? "Join" : "#{current_user.first_name} #{current_user.last_name}" %>
+						</a>
+
+						<div class="dropdown-menu">
+							<% if current_user%>
+								<%= link_to "Logout", logout_path, method: :delete, data: { confirm: "Are you sure?"}, class: "dropdown-item"%>
+							<% else %>
+								<%= link_to 'Sign_in', "#sign_in", "data-toggle" => "modal", class: "dropdown-item"%>
+								<%= link_to 'Sign_up', "#sign_up", "data-toggle" => "modal", class: "dropdown-item"%>
+							<% end %>
+						</div>
+					</li>
+				</ul>
+		</nav>
+		<%= render 'devise/registrations/sign_up' %>
+		<%= render 'users/sessions/sign_in' %>
 
     <%= yield %>
   </body>

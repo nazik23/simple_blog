@@ -1,8 +1,10 @@
-<% @comments.each do |comment|%>
-	<dt><%= comment.comment_owner %></dt>
-	<dd><%= comment.body %></dd>
-	<da>
-	 <%= link_to 'Edit', edit_comment_path(comment) %>
-		<%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?'}%> 
-	</da>
-<% end %>
+<ul class="list-group list-group-flush">
+	<% @comments.each do |comment|%>
+		<li class="list-group-item">
+			<h5 class="font-weight-bold"><%= comment.comment_owner %></h5>
+			<p><%= comment.body %></p>
+			<%= link_to 'Edit', edit_comment_path(comment), class: "card-link" %>
+			<%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?'}, class: "card-link" %> 
+		</li>
+	<% end %>
+</ul>
