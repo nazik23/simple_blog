@@ -1,14 +1,9 @@
 Rails.application.routes.draw do
 
   devise_for :users, controllers: {
-		sessions: 'sessions', registrations: 'registrations' }
-  devise_scope :user do 
-	 get 'login', to: 'users/sessions#new'
-	 post 'login', to: 'users/sessions#create'
-	 delete 'logout', to: 'users/sessions#destroy'
-	 get 'signup', to: 'devise/registrations#new'
-	 post 'signup', to: 'devise/registrations#create'
-  end
+		sessions: 'sessions', registrations: 'registrations' }, path: '',
+		path_names: { sign_in: 'login', sign_out: 'logout'}
+	
   root 'posts#index', as: 'posts_index'
   resources :posts
   resources :comments

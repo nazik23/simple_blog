@@ -1,20 +1,19 @@
 <p id="notice"><%= notice %></p>
-<div class="container">
+<div class="container" style="width:900px">
 	<h1>Posts</h1>
 
 	<%= link_to 'New Post', new_post_path, class: "btn btn-primary btn-block" %>
 	<% @posts.order(created_at: :desc).each do |post| %>
 		<% post_id = post.id %>
 		<% comments_count = post.comments.count %>
-		<div class="card mb-3">
+		<div class="card mb-3"> 
 				<div id="post_<%= post_id %>">
-					<div class="card-header">
+					<%= image_tag post.picture.url(:medium), class: "card-img-top" if post.picture.file? %>  
+					<div class="card-body">
 						<div class="row">
 							<h3 class="col font-weight-bold"><%= post.title %></h3>
-							<div class="col text-right"><%= post.created_at.strftime('%-d %b\'%y %H:%M')%></div>
+							<span class="col text-right"><%= post.created_at.strftime('%-d %b\'%y %H:%M')%></span>
 						</div>
-					</div>
-					<div class="card-body">
 						<p class="card-text"><%= truncate(strip_tags(post.body), length: 50) %></p>
 						<% if (post.tags.length > 0) %>
 							<p class="card-text" id="tags">

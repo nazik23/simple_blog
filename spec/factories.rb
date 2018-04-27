@@ -4,16 +4,10 @@ FactoryBot.define do
     body "MyText"
     user nil
   end
+
 	factory :user do
 		id 25
 		initialize_with { User.find_or_create_by(id: id)}
-	#	sequence(:id, 5) { |n| n * 5 }
-	#	first_name "Bob"
-	#	last_name "Biba"
-	#	email { "#{first_name}.#{last_name}#{id}@i.ua".downcase }
-	#	password 'secret'
-	#	password_confirmation 'secret'
-
 
 		factory :user_with_posts do
 			transient do

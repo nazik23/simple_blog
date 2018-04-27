@@ -29,7 +29,7 @@
 
 						<div class="dropdown-menu">
 							<% if current_user%>
-								<%= link_to "Logout", logout_path, method: :delete, data: { confirm: "Are you sure?"}, class: "dropdown-item"%>
+								<%= link_to "Logout", destroy_user_session_path, method: :delete, data: { confirm: "Are you sure?"}, class: "dropdown-item"%>
 							<% else %>
 								<%= link_to 'Sign_in', "#sign_in", "data-toggle" => "modal", class: "dropdown-item"%>
 								<%= link_to 'Sign_up', "#sign_up", "data-toggle" => "modal", class: "dropdown-item"%>

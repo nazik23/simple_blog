@@ -64,3 +64,4 @@ end
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'bootstrap', '~> 4.1.0'
+gem 'paperclip', '~> 6.0.0'

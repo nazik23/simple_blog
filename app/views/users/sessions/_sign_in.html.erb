@@ -7,7 +7,7 @@
 			</div>
 
 			<div class="modal-body">
-				<%= form_for(User.new, url: session_path(:user), html: {id: "sign_in_user", 'data-type' => 'json'}, remote: true) do |f| %>
+				<%= form_with(scope: :user, url: session_path(:user), html: {id: "sign_in_user", 'data-type' => 'json'}) do |f| %>
 					<div class="field">
 						<%= f.label :email %><br />
 						<%= f.email_field :email, autofocus: true, autocomplete: "email" %>
