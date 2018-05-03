@@ -1,17 +1,20 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, except: :index 
-	before_action :check_post_owner, except: [:new, :index, :create, :related_comments]
+  before_action :authenticate_user!, except: :index  
+	before_action :check_post_owner, except: [:new, :index, :create]
 
   # GET /posts
   # GET /posts.json
   def index
+		lam = -> (*arg){ Post.includes(:tags, :taggings).send(*arg) }
     if params[:tag]
-	    @posts = Post.tagged_with(params[:tag])
+#@posts = Post.tagged_with(params[:tag])
+			@posts = lam[:tagged_with, params[:tag]]
 		elsif params[:all]
-			@posts = Post.all
+#	@posts = Post.includes(:tags).all
+			@posts = lam[:all]
 		else
-	    @posts = user_signed_in? ? current_user.posts : Post.all
+	    @posts = user_signed_in? ? current_user.posts : lam[:all]
     end
   end
 
@@ -38,6 +41,11 @@ class PostsController < ApplicationController
       if @post.save
         format.html { redirect_to posts_url, notice: 'Post was successfully created.' }
         format.json { render :show, status: :created, location: @post }
+
+				@owner = {first_name: current_user.first_name, last_name: current_user.last_name}
+				@action = "new Post"
+				ActionCable.server.broadcast 'posts',
+				html: render_to_string('/alert', layout: false) 
       else
         format.html { render :new }
         format.json { render json: @post.errors, status: :unprocessable_entity }

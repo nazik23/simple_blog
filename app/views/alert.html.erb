@@ -1,0 +1,7 @@
+	<div class="alert alert-primary alert-dismissible fade show" role="alert">
+		  <strong><%= "#{@owner[:first_name]} #{@owner[:last_name]} added #@action"%><%= " to #{@post_owner.first_name}'s #{@post_owner.last_name} post" if @post_owner %>
+			</strong>
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		</div>

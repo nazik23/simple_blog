@@ -27,6 +27,13 @@ class CommentsController < ApplicationController
         format.html { redirect_to posts_url, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
 				format.js
+
+				@owner = {first_name: current_user.first_name,\
+ 				 	last_name: current_user.last_name}
+				@action = "new Comment"
+				@post_owner = User.find(Post.find(comment_params[:post_id]).user_id)
+				ActionCable.server.broadcast 'comments',
+				html: render_to_string('/alert', layout: false)
       else
         format.html { render :new }
         format.json { render json: @comment.errors, status: :unprocessable_entity }

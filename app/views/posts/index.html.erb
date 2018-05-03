@@ -2,6 +2,7 @@
 <div class="container" style="width:900px">
 	<h1>Posts</h1>
 
+	<div id="notifications"></div>
 	<%= link_to 'New Post', new_post_path, class: "btn btn-primary btn-block" %>
 	<% @posts.order(created_at: :desc).each do |post| %>
 		<% post_id = post.id %>

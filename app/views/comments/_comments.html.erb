@@ -3,8 +3,10 @@
 		<li class="list-group-item">
 			<h5 class="font-weight-bold"><%= owner_of comment %></h5>
 			<p><%= comment.body %></p>
-			<%= link_to 'Edit', edit_comment_path(comment), class: "card-link" %>
-			<%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?'}, class: "card-link" %> 
+			<% if comment.user_id == current_user.id %>
+				<%= link_to 'Edit', edit_comment_path(comment), class: "card-link" %>
+				<%= link_to 'Delete', comment, method: :delete, data: { confirm: 'Are you sure?'}, class: "card-link" %> 
+			<% end %>
 		</li>
 	<% end %>
 </ul>
